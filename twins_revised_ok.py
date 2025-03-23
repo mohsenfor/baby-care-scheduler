@@ -13,11 +13,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Add this import at the top
+# Adding date and time
 import time
 from datetime import datetime, timedelta
 
-# Add this after your other functions but before the main app code
+# set a function for due tasks 
 def check_due_tasks():
     """Check for tasks that are due or overdue and show notifications"""
     now = get_current_time()
@@ -165,11 +165,10 @@ st.header("Current Tasks")
 now = get_current_time()
 st.write(f"Current time: {now.strftime('%A, %B %d, %Y %I:%M %p')}")
 
-# Add this right after the "Current time: ..." display line
-# This creates a container for notifications that we'll update
+# create a container for notifications that we'll update
 notification_container = st.empty()
 
-# Add auto-refresh for checking notifications
+# auto-refresh for checking notifications
 if st.button("Check for Due Tasks", key="check_notifications"):
     st.rerun()
 
@@ -182,7 +181,7 @@ if due_tasks:
             status = "OVERDUE" if task['overdue'] else "DUE NOW"
             st.error(f"**{status}**: {task['task']} for {task['baby']} at {task['time']}")
             
-            # Add buttons to mark as complete or snooze
+            # buttons to mark as complete or snooze
             col1, col2 = st.columns(2)
             with col1:
                 if st.button(f"Complete", key=f"notify_complete_{task['task']}"):
@@ -205,7 +204,7 @@ if due_tasks:
                     save_data()
                     st.rerun()
         
-        # Add sound alert for notifications (HTML audio element)
+        # sound alert for notifications
         st.markdown(
             """
             <audio autoplay>
@@ -337,7 +336,7 @@ else:
         st.success("All daily counts have been reset!")
         st.rerun()
 
-# Add this near the end of your file, just before the footer
+
 # Auto refresh section
 st.markdown("---")
 st.subheader("Notification Settings")
